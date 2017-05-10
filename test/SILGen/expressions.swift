@@ -255,9 +255,9 @@ func generic_member_ref<T>(_ x: Generic<T>) -> Int {
 }
 
 // CHECK-LABEL: sil hidden @_T011expressions24bound_generic_member_ref{{[_0-9a-zA-Z]*}}F
-func bound_generic_member_ref(_ x: Generic<UnicodeScalar>) -> Int {
+func bound_generic_member_ref(_ x: Generic<Unicode.Scalar>) -> Int {
   var x = x
-  // CHECK: bb0([[XADDR:%[0-9]+]] : $Generic<UnicodeScalar>):
+  // CHECK: bb0([[XADDR:%[0-9]+]] : $Generic<Unicode.Scalar>):
   return x.mono_member
   // CHECK: [[MEMBER_ADDR:%[0-9]+]] = struct_element_addr {{.*}}, #Generic.mono_member
   // CHECK: load [trivial] [[MEMBER_ADDR]]
@@ -419,11 +419,11 @@ func declref_to_metatype() -> Spoon.Type {
 }
 
 // CHECK-LABEL: sil hidden @_T011expressions27declref_to_generic_metatype{{[_0-9a-zA-Z]*}}F
-func declref_to_generic_metatype() -> Generic<UnicodeScalar>.Type {
+func declref_to_generic_metatype() -> Generic<Unicode.Scalar>.Type {
   // FIXME parsing of T<U> in expression context
-  typealias GenericChar = Generic<UnicodeScalar>
+  typealias GenericChar = Generic<Unicode.Scalar>
   return GenericChar.self
-  // CHECK: metatype $@thin Generic<UnicodeScalar>.Type
+  // CHECK: metatype $@thin Generic<Unicode.Scalar>.Type
 }
 
 func int(_ x: Int) {}

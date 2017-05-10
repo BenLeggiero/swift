@@ -10,12 +10,12 @@ struct Y {
 
 enum Z {
   case none
-  case char(UnicodeScalar)
+  case char(Unicode.Scalar)
   case string(String)
   case point(Int, Int)
 
   init() { self = .none }
-  init(_ c: UnicodeScalar) { self = .char(c) }
+  init(_ c: Unicode.Scalar) { self = .char(c) }
   init(_ s: String) { self = .string(s) }
   init(_ x: Int, _ y: Int) { self = .point(x, y) }
 }
@@ -47,7 +47,7 @@ X(i: 1, j: 2) // expected-warning{{unused}}
 Y(1, 2, "hello") // expected-warning{{unused}}
 
 // Unions
-Z(UnicodeScalar("a")) // expected-warning{{unused}}
+Z(Unicode.Scalar("a")) // expected-warning{{unused}}
 Z(1, 2) // expected-warning{{unused}}
 
 acceptZ(.none)
@@ -94,10 +94,10 @@ _ = b as! Derived
 Int(i) // expected-warning{{unused}}
 _ = i as Int
 Z(z) // expected-error{{cannot invoke initializer for type 'Z' with an argument list of type '(Z)'}}
-// expected-note @-1 {{overloads for 'Z' exist with these partially matching parameter lists: (UnicodeScalar), (String)}}
+// expected-note @-1 {{overloads for 'Z' exist with these partially matching parameter lists: (Unicode.Scalar), (String)}}
 
 Z.init(z)  // expected-error {{cannot invoke 'Z.Type.init' with an argument list of type '(Z)'}}
-// expected-note @-1 {{overloads for 'Z.Type.init' exist with these partially matching parameter lists: (UnicodeScalar), (String)}}
+// expected-note @-1 {{overloads for 'Z.Type.init' exist with these partially matching parameter lists: (Unicode.Scalar), (String)}}
 
 
 _ = z as Z

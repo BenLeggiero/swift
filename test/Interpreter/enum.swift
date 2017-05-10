@@ -4,7 +4,7 @@
 // REQUIRES: executable_test
 
 enum Singleton {
-  case x(Int, UnicodeScalar)
+  case x(Int, Unicode.Scalar)
 }
 
 enum NoPayload {
@@ -14,13 +14,13 @@ enum NoPayload {
 }
 
 enum SinglePayloadTrivial {
-  case x(UnicodeScalar, Int)
+  case x(Unicode.Scalar, Int)
   case y
   case z
 }
 
 enum MultiPayloadTrivial {
-  case x(UnicodeScalar, Int)
+  case x(Unicode.Scalar, Int)
   case y(Int, Double)
   case z
 }

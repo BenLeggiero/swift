@@ -83,7 +83,7 @@ StaticStringTestSuite.test("PointerRepresentation/unicodeScalar")
 }
 
 StaticStringTestSuite.test("UnicodeScalarRepresentation/ASCII") {
-  // The type checker does not call the UnicodeScalar initializer even if
+  // The type checker does not call the Unicode.Scalar initializer even if
   // passed a literal that consists from a single Unicode scalar.
 
   // U+005A LATIN CAPITAL LETTER Z

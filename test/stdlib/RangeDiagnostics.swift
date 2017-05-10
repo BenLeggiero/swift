@@ -153,8 +153,8 @@ func typeInference_commonTypes() {
     expectType(Range<Character>.self, &range)
   }
   do {
-    var range = UnicodeScalar("a")..<"z"
-    expectType(Range<UnicodeScalar>.self, &range)
+    var range = Unicode.Scalar("a")..<"z"
+    expectType(Range<Unicode.Scalar>.self, &range)
   }
   do {
     let s = ""
@@ -234,8 +234,8 @@ func typeInference_commonTypes() {
     expectType(ClosedRange<Character>.self, &range)
   }
   do {
-    var range = UnicodeScalar("a")..."z"
-    expectType(ClosedRange<UnicodeScalar>.self, &range)
+    var range = Unicode.Scalar("a")..."z"
+    expectType(ClosedRange<Unicode.Scalar>.self, &range)
   }
   do {
     let s = ""

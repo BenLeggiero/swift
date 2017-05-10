@@ -21,7 +21,7 @@ func simple_getline() -> [UInt8]? {
       }
       return result
     }
-    if c == CInt(UnicodeScalar("\n").value) {
+    if c == CInt(Unicode.Scalar("\n").value) {
       return result
     }
   }

@@ -27,11 +27,11 @@
 */
 
 //===----------------------------------------------------------------------===//
-extension UnicodeScalar {
+extension Unicode.Scalar {
   // Hack providing an efficient API that is available to the standard library
   @_versioned
   @inline(__always)
-  init(_unchecked x: UInt32) { self = unsafeBitCast(x, to: UnicodeScalar.self) }
+  init(_unchecked x: UInt32) { self = unsafeBitCast(x, to: Unicode.Scalar.self) }
 }
 //===----------------------------------------------------------------------===//
 
@@ -65,7 +65,7 @@ extension Unicode.DefaultScalarView : Sequence {
 }
 
 extension Unicode.DefaultScalarView.Iterator : IteratorProtocol, Sequence {
-  mutating func next() -> UnicodeScalar? {
+  mutating func next() -> Unicode.Scalar? {
     return parsing.next().map { Encoding.decode($0) }
   }
 }
@@ -73,7 +73,7 @@ extension Unicode.DefaultScalarView.Iterator : IteratorProtocol, Sequence {
 extension Unicode.DefaultScalarView {
   struct Index {
     var codeUnitIndex: CodeUnits.Index
-    var scalar: UnicodeScalar
+    var scalar: Unicode.Scalar
     var stride: UInt8
   }
 }
@@ -103,7 +103,7 @@ extension Unicode.DefaultScalarView : Collection {
       return index(
         after: Index(
           codeUnitIndex: codeUnits.startIndex,
-          scalar: UnicodeScalar(_unchecked: 0),
+          scalar: Unicode.Scalar(_unchecked: 0),
           stride: 0)
       )
     }
@@ -114,12 +114,12 @@ extension Unicode.DefaultScalarView : Collection {
     get {
       return Index(
         codeUnitIndex: codeUnits.endIndex,
-        scalar: UnicodeScalar(_unchecked: 0),
+        scalar: Unicode.Scalar(_unchecked: 0),
         stride: 0)
     }
   }
 
-  public subscript(i: Index) -> UnicodeScalar {
+  public subscript(i: Index) -> Unicode.Scalar {
     @inline(__always) get { return i.scalar }
   }
 
@@ -140,7 +140,7 @@ extension Unicode.DefaultScalarView : Collection {
     case .error(let stride):
       return Index(
         codeUnitIndex: nextPosition,
-        scalar: UnicodeScalar(_unchecked: 0xfffd),
+        scalar: Unicode.Scalar(_unchecked: 0xfffd),
         stride: numericCast(stride))
     case .emptyInput:
       return endIndex
@@ -167,7 +167,7 @@ extension Unicode.DefaultScalarView : BidirectionalCollection {
       let d: CodeUnits.IndexDistance = -numericCast(stride)
       return Index(
         codeUnitIndex: codeUnits.index(i.codeUnitIndex, offsetBy: d) ,
-        scalar: UnicodeScalar(_unchecked: 0xfffd),
+        scalar: Unicode.Scalar(_unchecked: 0xfffd),
         stride: numericCast(stride))
     case .emptyInput: fatalError("index out of bounds.")
     }
@@ -228,11 +228,11 @@ func checkDecodeUTF<Codec : UnicodeCodec & UnicodeEncoding>(
   func output(_ scalar: UInt32) {
     decoded.append(scalar)
     expectEqual(
-      UnicodeScalar(scalar),
-      Codec.decode(Codec.encode(UnicodeScalar(scalar)!)!))
+      Unicode.Scalar(scalar),
+      Codec.decode(Codec.encode(Unicode.Scalar(scalar)!)!))
   }
   
-  func output1(_ scalar: UnicodeScalar) {
+  func output1(_ scalar: Unicode.Scalar) {
     decoded.append(scalar.value)
     expectEqual(scalar, Codec.decode(Codec.encode(scalar)!))
   }
@@ -329,7 +329,7 @@ func checkDecodeUTF<Codec : UnicodeCodec & UnicodeEncoding>(
   }
 
   //===--- Transcoded Scalars ---------------------------------------------===//
-  for x in decoded.lazy.map({ UnicodeScalar($0)! }) {
+  for x in decoded.lazy.map({ Unicode.Scalar($0)! }) {
     expectEqualSequence(
       UTF8.encode(x)!,
       UTF8.transcode(
@@ -571,8 +571,8 @@ public struct UTFTest {
   public let string: String
   public let utf8: [UInt8]
   public let utf16: [UInt16]
-  public let unicodeScalars: [UnicodeScalar]
-  public let unicodeScalarsRepairedTail: [UnicodeScalar]
+  public let unicodeScalars: [Unicode.Scalar]
+  public let unicodeScalarsRepairedTail: [Unicode.Scalar]
   public let flags: Flags
   public let loc: SourceLoc
 
@@ -596,9 +596,9 @@ public struct UTFTest {
     self.string = string
     self.utf8 = utf8
     self.utf16 = utf16
-    self.unicodeScalars = scalars.map { UnicodeScalar($0)! }
+    self.unicodeScalars = scalars.map { Unicode.Scalar($0)! }
     self.unicodeScalarsRepairedTail =
-      scalarsRepairedTail.map { UnicodeScalar($0)! }
+      scalarsRepairedTail.map { Unicode.Scalar($0)! }
     self.flags = flags
     self.loc = SourceLoc(file, line, comment: "test data")
   }

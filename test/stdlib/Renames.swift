@@ -510,18 +510,18 @@ func _StringCharacterView<S, C>(x: String.CharacterView, s: S, c: C, i: String.C
   x.appendContentsOf(s) // expected-error {{'appendContentsOf' has been renamed to 'append(contentsOf:)'}} {{5-21=append}} {{22-22=contentsOf: }} {{none}}
 }
 
-func _StringAppend(s: inout String, u: UnicodeScalar) {
+func _StringAppend(s: inout String, u: Unicode.Scalar) {
   s.append(u) // expected-error {{'append' is unavailable: Replaced by append(_: String)}} {{none}}
 }
 
-func _StringLegacy(c: Character, u: UnicodeScalar) {
+func _StringLegacy(c: Character, u: Unicode.Scalar) {
   _ = String(count: 1, repeatedValue: c) // expected-error {{'init(count:repeatedValue:)' is unavailable: Renamed to init(repeating:count:) and reordered parameters}} {{none}}
   _ = String(count: 1, repeatedValue: u) // expected-error {{'init(count:repeatedValue:)' is unavailable: Renamed to init(repeating:count:) and reordered parameters}} {{none}}
   _ = String(repeating: c, count: 1) // no more error, since String conforms to BidirectionalCollection
   _ = String(repeating: u, count: 1) // expected-error {{'init(repeating:count:)' is unavailable: Replaced by init(repeating: String, count: Int)}} {{none}}
 }
 
-func _Unicode<C : UnicodeCodec>(s: UnicodeScalar, c: C.Type, out: (C.CodeUnit) -> Void) {
+func _Unicode<C : UnicodeCodec>(s: Unicode.Scalar, c: C.Type, out: (C.CodeUnit) -> Void) {
   func fn<T : UnicodeCodecType>(_: T) {} // expected-error {{'UnicodeCodecType' has been renamed to 'UnicodeCodec'}} {{15-31=UnicodeCodec}} {{none}}
   c.encode(s, output: out) // expected-error {{encode(_:output:)' has been renamed to 'encode(_:into:)}} {{5-11=encode}} {{15-21=into}} {{none}}
   c.encode(s) { _ in } // OK
@@ -535,8 +535,8 @@ func _Unicode<I : IteratorProtocol, E : UnicodeCodec>(i: I, e: E.Type) where I.E
   _ = UTF16.measure(e, input: i, repairIllFormedSequences: true) // expected-error {{'measure(_:input:repairIllFormedSequences:)' is unavailable: use 'transcodedLength(of:decodedAs:repairingIllFormedSequences:)'}} {{none}}
 }
 
-func _UnicodeScalar(s: UnicodeScalar) {
-  _ = UnicodeScalar() // expected-error {{'init()' is unavailable: use 'UnicodeScalar(0)'}} {{none}}
+func _UnicodeScalar(s: Unicode.Scalar) {
+  _ = Unicode.Scalar() // expected-error {{'init()' is unavailable: use 'Unicode.Scalar(0)'}} {{none}}
   _ = s.escape(asASCII: true) // expected-error {{'escape(asASCII:)' has been renamed to 'escaped(asASCII:)'}} {{9-15=escaped}} {{none}}
 }
 

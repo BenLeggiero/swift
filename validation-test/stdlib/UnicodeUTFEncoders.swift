@@ -55,12 +55,12 @@ var unicodeScalarCount: Int {
   return count
 }
 
-func nthUnicodeScalar(_ n: UInt32) -> UnicodeScalar {
+func nthUnicodeScalar(_ n: UInt32) -> Unicode.Scalar {
   var count: UInt32 = 0
   for r in unicodeScalarRanges {
     count += r.upperBound - r.lowerBound
     if count > n {
-      return UnicodeScalar(r.upperBound - (count - n))!
+      return Unicode.Scalar(r.upperBound - (count - n))!
     }
   }
   _preconditionFailure("Index out of range")
@@ -97,7 +97,7 @@ final class CodecTest<Codec : TestableUnicodeCodec> {
   var nsEncodeBuffer: [CodeUnit] = Array(repeating: 0, count: 4)
   var encodeBuffer: [CodeUnit] = Array(repeating: 0, count: 4)
 
-  final func testOne(_ scalar: UnicodeScalar) {
+  final func testOne(_ scalar: Unicode.Scalar) {
     /* Progress reporter
     if (scalar.value % 0x1000) == 0 {
       print("\(asHex(scalar.value))")
@@ -114,7 +114,7 @@ final class CodecTest<Codec : TestableUnicodeCodec> {
     }
 
     var iter = nsEncoded.makeIterator()
-    var decoded: UnicodeScalar
+    var decoded: Unicode.Scalar
     var decoder = Codec()
     switch decoder.decode(&iter) {
     case .scalarValue(let us):

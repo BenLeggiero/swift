@@ -970,16 +970,16 @@ public struct _BigInt<Word: FixedWidthInteger & UnsignedInteger> :
   public func toString(radix: Int = 10, lowercase: Bool = true) -> String {
     assert(2...36 ~= radix, "radix must be in range 2...36")
 
-    let digitsStart = ("0" as UnicodeScalar).value
-    let lettersStart = ((lowercase ? "a" : "A") as UnicodeScalar).value - 10
-    func toLetter(_ x: UInt32) -> UnicodeScalar {
+    let digitsStart = ("0" as Unicode.Scalar).value
+    let lettersStart = ((lowercase ? "a" : "A") as Unicode.Scalar).value - 10
+    func toLetter(_ x: UInt32) -> Unicode.Scalar {
       return x < 10
-        ? UnicodeScalar(digitsStart + x)!
-        : UnicodeScalar(lettersStart + x)!
+        ? Unicode.Scalar(digitsStart + x)!
+        : Unicode.Scalar(lettersStart + x)!
     }
 
     let radix = _BigInt(radix)
-    var result: [UnicodeScalar] = []
+    var result: [Unicode.Scalar] = []
 
     var x = self.magnitude
     while !x.isZero {

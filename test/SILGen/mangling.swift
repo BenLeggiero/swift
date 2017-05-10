@@ -86,8 +86,8 @@ func uses_objc_class_and_protocol(o o: NSObject, p: NSAnsing) {}
 // CHECK-LABEL: sil hidden @_T08mangling17uses_clang_structySC6NSRectV1r_tF
 func uses_clang_struct(r r: NSRect) {}
 
-// CHECK-LABEL: sil hidden @_T08mangling14uses_optionalsScSgSiSg1x_tF
-func uses_optionals(x x: Int?) -> UnicodeScalar? { return nil }
+// CHECK-LABEL: sil hidden @_T08mangling14uses_optionalss7UnicodeO6ScalarVSgSiSg1x_tF
+func uses_optionals(x x: Int?) -> Unicode.Scalar? { return nil }
 
 enum GenericUnion<T> {
   // CHECK-LABEL: sil shared [transparent] @_T08mangling12GenericUnionO3FooACyxGSicAEmlF

@@ -355,7 +355,7 @@ StringTests.test("literalConcatenation") {
   }
 
   do {
-    // ExtendedGraphemeClusterLiteral + UnicodeScalar
+    // ExtendedGraphemeClusterLiteral + Unicode.Scalar
     var s = "a\u{0301}" + "z"
     expectType(String.self, &s)
     expectEqual("a\u{0301}z", s)
@@ -374,7 +374,7 @@ StringTests.test("literalConcatenation") {
   }
 
   do {
-    // StringLiteral + UnicodeScalar
+    // StringLiteral + Unicode.Scalar
     var s = "xyz" + "1"
     expectType(String.self, &s)
     expectEqual("xyz1", s)
@@ -686,8 +686,8 @@ StringTests.test("stringCoreExtensibility")
   .skip(.nativeRuntime("Foundation dependency"))
   .code {
 #if _runtime(_ObjC)
-  let ascii = UTF16.CodeUnit(UnicodeScalar("X").value)
-  let nonAscii = UTF16.CodeUnit(UnicodeScalar("é").value)
+  let ascii = UTF16.CodeUnit(Unicode.Scalar("X").value)
+  let nonAscii = UTF16.CodeUnit(Unicode.Scalar("é").value)
 
   for k in 0..<3 {
     for count in 1..<16 {
@@ -709,7 +709,7 @@ StringTests.test("stringCoreExtensibility")
         x.append(contentsOf: repeatElement(ascii, count: 2))
         
         expectEqualSequence(
-          [UTF16.CodeUnit(UnicodeScalar("b").value)]
+          [UTF16.CodeUnit(Unicode.Scalar("b").value)]
           + Array(repeatElement(ascii, count: 3*boundary))
           + repeatElement(nonAscii, count: 3*(count - boundary))
           + repeatElement(ascii, count: 2),
@@ -984,7 +984,7 @@ StringTests.test(
   .skip(.nativeRuntime("String._compareASCII undefined without _runtime(_ObjC)"))
   .code {
 #if _runtime(_ObjC)
-  let asciiDomain = (0..<128).map({ String(UnicodeScalar($0)) })
+  let asciiDomain = (0..<128).map({ String(Unicode.Scalar($0)) })
   expectEqualMethodsForDomain(
     asciiDomain, asciiDomain, 
     String._compareDeterministicUnicodeCollation, String._compareASCII)
@@ -1005,8 +1005,8 @@ StringTests.test("lowercased()") {
   let asciiDomain: [Int32] = Array(0..<128)
   expectEqualFunctionsForDomain(
     asciiDomain,
-    { String(UnicodeScalar(Int(tolower($0)))!) },
-    { String(UnicodeScalar(Int($0))!).lowercased() })
+    { String(Unicode.Scalar(Int(tolower($0)))!) },
+    { String(Unicode.Scalar(Int($0))!).lowercased() })
 
   expectEqual("", "".lowercased())
   expectEqual("abcd", "abCD".lowercased())
@@ -1039,8 +1039,8 @@ StringTests.test("uppercased()") {
   let asciiDomain: [Int32] = Array(0..<128)
   expectEqualFunctionsForDomain(
     asciiDomain,
-    { String(UnicodeScalar(Int(toupper($0)))!) },
-    { String(UnicodeScalar(Int($0))!).uppercased() })
+    { String(Unicode.Scalar(Int(toupper($0)))!) },
+    { String(Unicode.Scalar(Int($0))!).uppercased() })
 
   expectEqual("", "".uppercased())
   expectEqual("ABCD", "abCD".uppercased())
@@ -1157,30 +1157,30 @@ StringTests.test("indexConversion")
 #endif
 }
 
-StringTests.test("String.append(_: UnicodeScalar)") {
+StringTests.test("String.append(_: Unicode.Scalar)") {
   var s = ""
 
   do {
     // U+0061 LATIN SMALL LETTER A
-    let input: UnicodeScalar = "\u{61}"
+    let input: Unicode.Scalar = "\u{61}"
     s.append(String(input))
     expectEqual(["\u{61}"], Array(s.unicodeScalars))
   }
   do {
     // U+304B HIRAGANA LETTER KA
-    let input: UnicodeScalar = "\u{304b}"
+    let input: Unicode.Scalar = "\u{304b}"
     s.append(String(input))
     expectEqual(["\u{61}", "\u{304b}"], Array(s.unicodeScalars))
   }
   do {
     // U+3099 COMBINING KATAKANA-HIRAGANA VOICED SOUND MARK
-    let input: UnicodeScalar = "\u{3099}"
+    let input: Unicode.Scalar = "\u{3099}"
     s.append(String(input))
     expectEqual(["\u{61}", "\u{304b}", "\u{3099}"], Array(s.unicodeScalars))
   }
   do {
     // U+1F425 FRONT-FACING BABY CHICK
-    let input: UnicodeScalar = "\u{1f425}"
+    let input: Unicode.Scalar = "\u{1f425}"
     s.append(String(input))
     expectEqual(
       ["\u{61}", "\u{304b}", "\u{3099}", "\u{1f425}"],

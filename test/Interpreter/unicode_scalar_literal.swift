@@ -5,7 +5,7 @@
 
 import StdlibUnittest
 
-private let testSuite = TestSuite("UnicodeScalar literals")
+private let testSuite = TestSuite("Unicode.Scalar literals")
 
 private struct Expressible<T: _ExpressibleByBuiltinUnicodeScalarLiteral>
   : ExpressibleByUnicodeScalarLiteral {
@@ -16,7 +16,7 @@ private struct Expressible<T: _ExpressibleByBuiltinUnicodeScalarLiteral>
 }
 
 private func string(_ characters: UInt32...) -> String {
-  return String(characters.map { Character(UnicodeScalar($0)!) })
+  return String(characters.map { Character(Unicode.Scalar($0)!) })
 }
 private func expressible<T>(_ literal: Expressible<T>, as type: T.Type)
   -> String where T: CustomStringConvertible {
@@ -45,10 +45,10 @@ testSuite.test("Character literal type") {
   expectEqual(expressible("𝔹", as: Character.self), 𝔹)
 }
 
-testSuite.test("UnicodeScalar literal type") {
-  expectEqual(expressible("b", as: UnicodeScalar.self), b)
-  expectEqual(expressible("β", as: UnicodeScalar.self), β)
-  expectEqual(expressible("𝔹", as: UnicodeScalar.self), 𝔹)
+testSuite.test("Unicode.Scalar literal type") {
+  expectEqual(expressible("b", as: Unicode.Scalar.self), b)
+  expectEqual(expressible("β", as: Unicode.Scalar.self), β)
+  expectEqual(expressible("𝔹", as: Unicode.Scalar.self), 𝔹)
 }
 
 runAllTests()

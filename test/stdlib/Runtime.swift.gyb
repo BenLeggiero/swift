@@ -1317,10 +1317,10 @@ Reflection.test("Character/Mirror") {
   }
 }
 
-Reflection.test("UnicodeScalar") {
+Reflection.test("Unicode.Scalar") {
   do {
     // U+0061 LATIN SMALL LETTER A
-    let input: UnicodeScalar = "\u{61}"
+    let input: Unicode.Scalar = "\u{61}"
     var output = ""
     dump(input, to: &output)
 
@@ -1332,7 +1332,7 @@ Reflection.test("UnicodeScalar") {
 
   do {
     // U+304B HIRAGANA LETTER KA
-    let input: UnicodeScalar = "\u{304b}"
+    let input: Unicode.Scalar = "\u{304b}"
     var output = ""
     dump(input, to: &output)
 
@@ -1344,7 +1344,7 @@ Reflection.test("UnicodeScalar") {
 
   do {
     // U+3099 COMBINING KATAKANA-HIRAGANA VOICED SOUND MARK
-    let input: UnicodeScalar = "\u{3099}"
+    let input: Unicode.Scalar = "\u{3099}"
     var output = ""
     dump(input, to: &output)
 
@@ -1356,7 +1356,7 @@ Reflection.test("UnicodeScalar") {
 
   do {
     // U+1F425 FRONT-FACING BABY CHICK
-    let input: UnicodeScalar = "\u{1f425}"
+    let input: Unicode.Scalar = "\u{1f425}"
     var output = ""
     dump(input, to: &output)
 
