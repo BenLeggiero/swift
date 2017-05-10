@@ -167,7 +167,7 @@ extension _StringCore {
         return try Swift._withCStringAndLength(
           encodedAs: targetEncoding,
           from: UnsafeBufferPointer(start: startASCII, count: count)[bounds],
-          encodedAs: _Unicode.ASCII.self,
+          encodedAs: Unicode.ASCII.self,
           execute: body
         )
       }
@@ -175,7 +175,7 @@ extension _StringCore {
         return try Swift._withCStringAndLength(
           encodedAs: targetEncoding,
           from: UnsafeBufferPointer(start: startUTF16, count: count)[bounds],
-          encodedAs: _Unicode.UTF16.self,
+          encodedAs: Unicode.UTF16.self,
           execute: body
         )
       }
@@ -183,7 +183,7 @@ extension _StringCore {
     return try Swift._withCStringAndLength(
       encodedAs: targetEncoding,
       from: self[bounds],
-      encodedAs: _Unicode.UTF16.self,
+      encodedAs: Unicode.UTF16.self,
       execute: body
     )
   }
